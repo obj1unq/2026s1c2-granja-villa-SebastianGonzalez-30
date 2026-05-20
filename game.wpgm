@@ -1,6 +1,9 @@
 import wollok.game.*
 import personaje.*
 import cultivos.*
+import direcciones.*
+import muros.*
+
 
 program farmville {
 	//  CONFIG	
@@ -10,9 +13,26 @@ program farmville {
 	game.ground("ground.png")
 
 	//  VISUALES
- 	game.addVisualCharacter(personaje)
- 	game.addVisual(new Maiz()) // Se agrega a modo de prueba
+ 	game.addVisual(personaje)
+ 	
+
+	keyboard.left().onPressDo({ personaje.mover(izquierda)})
+	keyboard.right().onPressDo({ personaje.mover(derecha)})
+	keyboard.up().onPressDo({ personaje.mover(arriba)})
+	keyboard.down().onPressDo({ personaje.mover(abajo)})
+	keyboard.m().onPressDo {const nuevaPlanta = new Maiz(position = personaje.position()); personaje.sembrarSiPuede(nuevaPlanta)  }
+	
+    (0 .. 9).forEach({ numero =>
+        // Muros laterales izquierdo (X = -1) y derecho (X = 10)
+        game.addVisual(new MuroInvisible(position = game.at(-1, numero)))
+        game.addVisual(new MuroInvisible(position = game.at(10, numero)))
+        
+        // Muros inferior (Y = -1) y superior (Y = 10)
+        game.addVisual(new MuroInvisible(position = game.at(numero, -1)))
+        game.addVisual(new MuroInvisible(position = game.at(numero, 10)))
+    })
  	
  	//  COMIENZA
 	game.start()
 }
+//personaje.sembrarSiPuede(nuevaPlanta)
