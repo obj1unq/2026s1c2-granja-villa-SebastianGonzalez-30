@@ -1,0 +1,19 @@
+import wollok.game.*
+import personaje.*
+import cultivos.*
+import herramientas.*
+
+
+describe  "test de la granja" {
+  
+    method initialize() {
+    game.clear() 
+  }
+
+    test "puedo Plantar cosas" {
+      
+        
+
+    }
+
+}

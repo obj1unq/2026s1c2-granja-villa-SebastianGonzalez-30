@@ -1,6 +1,9 @@
 import wollok.game.*
 import personaje.*
 import cultivos.*
+import herramientas.*
+
+
 
 program farmville {
 	//  CONFIG	
@@ -11,8 +14,19 @@ program farmville {
 
 	//  VISUALES
  	game.addVisualCharacter(personaje)
- 	game.addVisual(new Maiz()) // Se agrega a modo de prueba
+ 	
+
+	keyboard.m().onPressDo {const nuevaPlanta = new Maiz(position = personaje.position()); personaje.sembrarSiPuede(nuevaPlanta)  }
+	keyboard.t().onPressDo {const nuevaPlanta = new Trigo(position = personaje.position()); personaje.sembrarSiPuede(nuevaPlanta)  }
+	keyboard.o().onPressDo {const nuevaPlanta = new Tomaco(position = personaje.position()); personaje.sembrarSiPuede(nuevaPlanta)  }
+	keyboard.r().onPressDo {personaje.regarSiPuede()}
+	keyboard.c().onPressDo {personaje.cosecharSiPuede()}
+	keyboard.v().onPressDo {personaje.venderCosechas()}
+	keyboard.space().onPressDo {personaje.decirDineroYPlantas()}
+	keyboard.a().onPressDo {const nuevoAspersor = new Aspersor(position = personaje.position()); personaje.ponerAspersorSiPuede(nuevoAspersor)  }
+    
  	
  	//  COMIENZA
 	game.start()
 }
+//personaje.sembrarSiPuede(nuevaPlanta)
