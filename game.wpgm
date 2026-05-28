@@ -1,8 +1,8 @@
 import wollok.game.*
 import personaje.*
 import cultivos.*
-import direcciones.*
-import muros.*
+import herramientas.*
+
 
 
 program farmville {
@@ -13,24 +13,18 @@ program farmville {
 	game.ground("ground.png")
 
 	//  VISUALES
- 	game.addVisual(personaje)
+ 	game.addVisualCharacter(personaje)
  	
 
-	keyboard.left().onPressDo({ personaje.mover(izquierda)})
-	keyboard.right().onPressDo({ personaje.mover(derecha)})
-	keyboard.up().onPressDo({ personaje.mover(arriba)})
-	keyboard.down().onPressDo({ personaje.mover(abajo)})
 	keyboard.m().onPressDo {const nuevaPlanta = new Maiz(position = personaje.position()); personaje.sembrarSiPuede(nuevaPlanta)  }
-	
-    (0 .. 9).forEach({ numero =>
-        // Muros laterales izquierdo (X = -1) y derecho (X = 10)
-        game.addVisual(new MuroInvisible(position = game.at(-1, numero)))
-        game.addVisual(new MuroInvisible(position = game.at(10, numero)))
-        
-        // Muros inferior (Y = -1) y superior (Y = 10)
-        game.addVisual(new MuroInvisible(position = game.at(numero, -1)))
-        game.addVisual(new MuroInvisible(position = game.at(numero, 10)))
-    })
+	keyboard.t().onPressDo {const nuevaPlanta = new Trigo(position = personaje.position()); personaje.sembrarSiPuede(nuevaPlanta)  }
+	keyboard.o().onPressDo {const nuevaPlanta = new Tomaco(position = personaje.position()); personaje.sembrarSiPuede(nuevaPlanta)  }
+	keyboard.r().onPressDo {personaje.regarSiPuede()}
+	keyboard.c().onPressDo {personaje.cosecharSiPuede()}
+	keyboard.v().onPressDo {personaje.venderCosechas()}
+	keyboard.space().onPressDo {personaje.decirDineroYPlantas()}
+	keyboard.a().onPressDo {const nuevoAspersor = new Aspersor(position = personaje.position()); personaje.ponerAspersorSiPuede(nuevoAspersor)  }
+    
  	
  	//  COMIENZA
 	game.start()
